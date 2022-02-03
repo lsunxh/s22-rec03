@@ -40,6 +40,11 @@ test.each(param)("test enqueue: enqueued number %d is correct", (nr) => {
 
 // can nest tests with shared descriptions for better readability
 describe("test size: ", ()=> {
+    test("0 entry", ()=>{
+        const queue = createQueue()
+        expect(queue.size()).toBe(0)
+    })
+
     test("1 entry", ()=>{
         const queue = createQueue()
         queue.enqueue(5)
@@ -52,4 +57,23 @@ describe("test size: ", ()=> {
             queue.enqueue(i)
         expect(queue.size()).toBe(11)
     })
+})
+
+test("test clear: clearing a queue should make it empty", () => {
+    const queue = createQueue()
+    queue.enqueue(2)
+    queue.clear()
+    expect(queue.isEmpty())
+})
+
+test("test dequeue: you dequeuing an empty queue should return null", () => {
+    const queue = createQueue()
+    expect(queue.dequeue()).toBeNull()
+})
+
+test("test dequeue: you dequeuing a non-empty queue should return the last elem", () => {
+    const queue = createQueue()
+    queue.enqueue(1)
+    queue.enqueue(2)
+    expect(queue.dequeue()).toBe(2)
 })
